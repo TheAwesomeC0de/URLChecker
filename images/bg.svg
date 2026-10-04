@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1600 900">
+
+  <defs>
+
+    <style>
+      :root {
+        --tile-size: 40px;
+      }
+
+      .pattern,
+      .tile {
+        width: var(--tile-size);
+        height: var(--tile-size);
+      }
+    </style>
+
+    <!-- NAVY -->
+    <pattern id="navyPattern" class="pattern"
+             width="40"
+             height="40"
+             patternUnits="userSpaceOnUse">
+
+      <rect class="tile" width="40" height="40" fill="#102F5F"/>
+
+      <g fill="none"
+         stroke="#294D7A"
+         stroke-width="1">
+
+        <path d="M20 0L40 20L20 40L0 20Z"/>
+        <path d="M20 0L20 40"/>
+        <path d="M0 20L40 20"/>
+        <path d="M10 10L30 30"/>
+        <path d="M30 10L10 30"/>
+
+      </g>
+    </pattern>
+
+
+    <!-- BEIGE -->
+        <pattern id="beigePattern" class="pattern"
+            width="40"
+            height="40"
+             patternUnits="userSpaceOnUse">
+
+          <rect class="tile" width="40" height="40" fill="#E9DCC2"/>
+
+      <g fill="none"
+         stroke="#D5C5A8"
+         stroke-width="2">
+
+        <path d="M20 0L40 20L20 40L0 20Z"/>
+        <path d="M20 0L20 40"/>
+        <path d="M0 20L40 20"/>
+        <path d="M10 10L30 30"/>
+        <path d="M30 10L10 30"/>
+
+      </g>
+    </pattern>
+
+
+    <!-- ~60 / 40 WAVY DIVISION -->
+    <clipPath id="top">
+      <path d="
+        M0 0H1600V540
+        C1450 500 1350 500 1200 555
+        C1050 610 950 610 800 555
+        C650 500 550 500 400 555
+        C250 610 150 610 0 555Z"/>
+    </clipPath>
+
+    <clipPath id="bottom">
+      <path d="
+        M0 555
+        C150 610 250 610 400 555
+        C550 500 650 500 800 555
+        C950 610 1050 610 1200 555
+        C1350 500 1450 500 1600 540
+        V900H0Z"/>
+    </clipPath>
+
+  </defs>
+
+
+  <rect width="1600"
+        height="900"
+        fill="url(#navyPattern)"
+        clip-path="url(#top)"/>
+
+  <rect width="1600"
+        height="900"
+        fill="url(#beigePattern)"
+        clip-path="url(#bottom)"/>
+
+</svg>

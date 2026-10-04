@@ -1,0 +1,30 @@
+body {
+    min-height: 100vh;
+    background-image: url("images/bg.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#url_box {
+    display:flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-45%, -60%);
+    width: 60%;
+    transition: all 1s ease;
+}
+
+#url_box.clicked {
+    display:flex;
+    position: absolute;
+    top: 10%;
+    left: 2%;
+    transform: translate(0%, -60%);
+    width: 30%;
+}
+
+#url_input {
+    display: inline-flex;
+    width: 80%;
+}
