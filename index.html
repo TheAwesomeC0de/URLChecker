@@ -11,7 +11,7 @@
 
 <body>
     <h1 style="position:absolute; top:20%; left:50%; transform: translate(-50%,-50%); color: #fbf4e6;">Test URLs</h1>
-    <div id="url_box"><input class="form-control" id="url_input" onEnter="submitUrl()"><button type="button" style="width:70px"
+    <div id="url_box"><input class="form-control" id="url_input" ><button type="button" style="width:70px"
             class="btn btn-primary" onclick="submitUrl()">Check</button></div>
     <table class="table resultTable hidden" id="resultTable">
         <tr id="format">
@@ -53,6 +53,7 @@
             text-align: center;
         ">We can only check for internet protocols. Beware of fraud, viruses and data theft!</div>
     </div>
+    <div id="urlError" popover="manual"></div>
 </body>
 
 </html>

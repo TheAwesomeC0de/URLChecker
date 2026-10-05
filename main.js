@@ -13,7 +13,9 @@ const errorMessage = `<div class="errormsg" style="
     justify-content: left;
     color: red;
     font-size: smaller;
-">`
+">`;
+
+const errorBox=`<a tabindex="0" class="btn btn-lg btn-danger" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-title="Dismissible popover" data-bs-content="Error occurred">Dismissible popover</a>`;
 
 const dnsRow = document.getElementById("dns");
 const availabilityRow = document.getElementById("availability");
@@ -21,6 +23,10 @@ const securityRow = document.getElementById("security");
 
 const dynamicTestRows = [dnsRow, availabilityRow, securityRow];
 
+var input = document.getElementById("url_input");
+const error = document.getElementById("urlError");
+
+var serverCallTimeout;
 
 
 
@@ -138,7 +144,7 @@ async function fetchURLsecurityReport(url) {
             { valid: true, name: "security" },
         ];
         const errors = ["DNS resolution failed", "Server not reachable", "SSL certificate invalid"];
-        await delay(2000);
+        //await delay(2000);
         if (Math.random() < failureRate) {
             var failCause = Math.floor(Math.random() * 2.99);
             errorRow = data[failCause];
@@ -196,11 +202,12 @@ submitUrl = () => {
     document.querySelectorAll('.errormsg').forEach((element) => {
         element.remove();
     });
-    document.querySelector('.successDiv').classList.add('hidden');
+    error.hidePopover();
+
     document.getElementById('url_box').classList.add('clicked');
     document.getElementById('resultTable').classList.remove('hidden');
 
-    var value = document.getElementById('url_input').value;
+    var value = input.value;
 
     var staticTestFailure = runStaticTests(value);
 
@@ -220,10 +227,52 @@ submitUrl = () => {
 
 };
 
-const input = document.getElementById("url_input");
-
 input.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
+        event.preventDefault();
         submitUrl();
     }
 });
+
+
+pushIntoErrorBox = (message) => {
+    error.textContent = message;
+
+    error.showPopover({source:input});
+    //console.log("show popover");
+}
+
+
+input.addEventListener("input", (event) => {
+    clearTimeout(serverCallTimeout);
+    error.hidePopover();
+    removeDynamicTestfields();
+    document.querySelectorAll('.errormsg').forEach((element) => {
+        element.remove();
+    });
+    const value = event.target.value;
+    var result1 = checkUrlStructure(value);
+    if (!checkUrlStructure(value).valid) {
+        pushIntoErrorBox(checkUrlStructure(value).error);
+        return;
+    }
+    var result2 = checkUrlEncoding(value);
+    if (!checkUrlEncoding(value).valid) {
+        pushIntoErrorBox(checkUrlEncoding(value).error);
+        return;
+    }
+
+    serverCallTimeout = setTimeout(() => {
+        console.log("server call fired");
+        fetchURLsecurityReport(value).then((result) => {
+            result.forEach((item, index) => {
+                if (!item.valid) {
+                    pushIntoErrorBox(item.error);
+                    return;
+                }
+            })
+        });
+    }, 1000);
+    //console.log("we return");
+    return;
+})
