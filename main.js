@@ -1,7 +1,7 @@
 
 const failureRate = 0.4;
 
-const passed = `<div><Image src="check2-circle.svg"/></div>`;
+const passed = `<div><Image src="images/check2-circle.svg"/></div>`;
 const failed = `<div style="font-family: cursive; color: #d62828; font-weight: 1000">X</div>`;
 const loading =
     `<div><div class="spinner-border spinner-border-sm text-secondary" role="status">
